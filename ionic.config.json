@@ -1,0 +1,7 @@
+{
+  "name": "Claim_ux",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
