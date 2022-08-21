@@ -15,6 +15,7 @@ export class LoginPage implements OnInit {
     private api_call: ApiCallService,
     private toastController: ToastController,
     private loadingCtrl: LoadingController) {
+      localStorage.clear();
     this.loginForm = this.fb.group({
       user_id:['',Validators.required],
       password:['',Validators.required],

@@ -6,12 +6,14 @@
          ] },
          {"title": "Reports", "icon": "stats-chart-outline","open":false,
           "children": [
-                 { "title": "Claim Details", "url": "", "icon": "chevron-forward-outline" },
-                 { "title": "Personal Ledger", "url": "", "icon": "chevron-forward-outline" },
-                 { "title": "Payment Details", "url": "", "icon": "chevron-forward-outline" },
-                 { "title": "Leave & Attandance", "url": "", "icon": "chevron-forward-outline" }
+                 { "title": "Claim Details", "url": "", "icon": "chevron-forward-outline","mode":"C" },
+                 { "title": "Personal Ledger", "url": "", "icon": "chevron-forward-outline","mode":"P"  },
+                 { "title": "Payment Details", "url": "", "icon": "chevron-forward-outline","mode":"D"  },
+                 { "title": "Leave & Attandance", "url": "", "icon": "chevron-forward-outline","mode":"L" }
 
-               ] }
+               ] },
+          {"title": "Log Out", "icon": "power-outline","url":"/"}
+
 
 
 ]

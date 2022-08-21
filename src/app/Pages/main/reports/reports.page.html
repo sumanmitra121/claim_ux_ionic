@@ -1,0 +1,47 @@
+<Component-header [title]="title">
+  <ion-buttons slot="end">
+    <ion-button (click)="print()">
+      <ion-icon name="print" ></ion-icon>
+
+    </ion-button>
+  </ion-buttons>
+</Component-header>
+
+<ion-content>
+  <ion-card id="printTable">
+    <ion-text>
+      <h4>SYNERGIC SOFTEK SOLUTIONS PVT. LTD.</h4>
+      <p>Module 7/18, Acropolis, 1858/1, Rajdanga Main RoadKolkata – 700 107</p>
+      <p>Claim details for the period of {{route.snapshot.params.frm_dt}} to {{route.snapshot.params.to_dt}}</p>
+
+    </ion-text>
+    <table>
+      <thead>
+        <tr>
+          <th>Claim Cd</th>
+          <th>Claim Date</th>
+          <th>Approve Date</th>
+          <th>Project Name</th>
+          <th>Purpose</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let repo of reports">
+          <td>{{repo.claim_cd}}</td>
+          <td>{{repo.claim_dt | date:'dd/MM/YYYY'}}</td>
+          <td>{{repo.approval_status !== "0" ? repo.approval_dt + "| date:'dd/MM/YYYY'" : 'N/A'}}</td>
+          <td>{{repo.project_name}}</td>
+          <td>{{repo.project_type}}</td>
+          <td>{{repo.amount}}</td>
+        </tr>
+        <tr>
+          <td colspan="5">TOTAL</td>
+          <td colspan="1">{{_total}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </ion-card>
+
+</ion-content>

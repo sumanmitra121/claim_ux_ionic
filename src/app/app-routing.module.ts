@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: 'add-claim',
     loadChildren: () => import('./Pages/main/claim/add-claim/add-claim.module').then( m => m.AddClaimPageModule)
+  },
+  {
+    path: 'reports',
+    loadChildren: () => import('./Pages/main/reports/reports.module').then( m => m.ReportsPageModule)
   }
 ];
 

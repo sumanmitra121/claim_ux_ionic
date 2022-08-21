@@ -15,7 +15,8 @@ const route: Routes= [
                           {path:'',redirectTo:'home',pathMatch:'full'},
                           {path:'home',loadChildren:()=>import('./dashboard/dashboard.module').then(m => m.DashboardPageModule)},
                           {path:'claim_dashboard',loadChildren:()=>import('./claim/claim-dashboard/claim-dashboard.module').then(m => m.ClaimDashboardPageModule)},
-                          {path:'add_claim/:id',loadChildren:()=>import('./claim/add-claim/add-claim.module').then(m => m.AddClaimPageModule)}
+                          {path:'add_claim/:id',loadChildren:()=>import('./claim/add-claim/add-claim.module').then(m => m.AddClaimPageModule)},
+                          {path:'reports/:type/:frm_dt/:to_dt',loadChildren:()=>import('../main/reports/reports.module').then(m => m.ReportsPageModule)}
                        ]
                       }
                       ];
