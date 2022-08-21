@@ -33,9 +33,10 @@ export class MainComponent implements OnInit {
   }
   submit_reports(){
     console.log(this.reports_Form);
-     this.api_call.client_call(0,'/claim_details','?emp_no='+ JSON.parse(localStorage.getItem('user')).emp_no + '&flag=1&from_dt='+this.reports_Form.value.frm_dt+'&to_dt='+this.reports_Form.value.to_dt).subscribe(res=>{
-       console.log(res);
-     })
+    this.api_call.getData('/claim_details?emp_no='+ JSON.parse(localStorage.getItem('user')).emp_no + '&flag=1&from_dt='+this.reports_Form.value.frm_dt+'&to_dt='+this.reports_Form.value.to_dt).subscribe(res =>{
+      console.log(res);
+
+    })
   }
 
 }

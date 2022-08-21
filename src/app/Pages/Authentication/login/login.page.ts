@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { ApiCallService } from 'src/app/Services/api-call.service';
-
+import {Http, HttpOptions} from '@capacitor-community/http';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -32,17 +32,29 @@ export class LoginPage implements OnInit {
     const formdata = new FormData();
     formdata.append('user_id',this.loginForm.value.user_id);
     formdata.append('password',this.loginForm.value.password);
-    this.api_call.client_call(1,'/login',formdata).subscribe((res: any) =>{
-      console.log(res);
-      loading.dismiss();
-      if(res.suc > 0){
-        localStorage.setItem('user',JSON.stringify(res.msg));
-         this.api_call.routeToSpecificPage('/main/',null);
-      }
-      else{
-         this.presentToastWithOptions();
-      }
-    });
+
+    this.api_call.postData('/login',formdata).subscribe((res: any) =>{
+        loading.dismiss();
+         console.log(JSON.parse(res.data));
+        if(JSON.parse(res.data).suc > 0){
+          localStorage.setItem('user',JSON.stringify(JSON.parse(res.data).msg));
+           this.api_call.routeToSpecificPage('/main/',null);
+        }
+        else{
+           this.presentToastWithOptions();
+        }
+      });
+    // this.api_call.client_call(1,'/login',formdata).subscribe((res: any) =>{
+    //   console.log(res);
+    //   loading.dismiss();
+    //   if(res.suc > 0){
+    //     localStorage.setItem('user',JSON.stringify(res.msg));
+    //      this.api_call.routeToSpecificPage('/main/',null);
+    //   }
+    //   else{
+    //      this.presentToastWithOptions();
+    //   }
+    // });
   }
 
   async presentToastWithOptions() {

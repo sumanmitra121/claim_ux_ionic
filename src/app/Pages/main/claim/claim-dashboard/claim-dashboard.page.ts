@@ -76,22 +76,30 @@ export class ClaimDashboardPage implements OnInit {
     this.users = this._backup_user;
   }
   fetchdata(){
-    this.api_call.client_call(0,'/claim_details','?emp_no='+JSON.parse(localStorage.getItem('user')).emp_no).subscribe((res: any) =>{
-      this.users = res.msg;
-      this._backup_user = res.msg;
-
+    this.api_call.getData('/claim_details?emp_no='+JSON.parse(localStorage.getItem('user')).emp_no).subscribe((res: any)=>{
+       this._backup_user = JSON.parse(res.data).msg;
+       this.users = JSON.parse(res.data).msg;
     });
+    // this.api_call.client_call(0,'/claim_details','?emp_no='+JSON.parse(localStorage.getItem('user')).emp_no).subscribe((res: any) =>{
+    //   this.users = res.msg;
+    //   this._backup_user = res.msg;
+
+    // });
   }
 
   setOpen(isOpen,claim_cd){
     if(claim_cd > 0){
     //API GET CALLED
-    this.api_call.client_call(0,'/claim_details','?id='+claim_cd).subscribe((res: any) =>{
-      console.log(res);
-      this.setDataForPrint = res;
+    this.api_call.getData('/claim_details?id='+claim_cd).subscribe((res: any)=>{
+      this.setDataForPrint = JSON.parse(res.data);
       this.isModalOpen = isOpen;
+   });
+    // this.api_call.client_call(0,'/claim_details','?id='+claim_cd).subscribe((res: any) =>{
+    //   console.log(res);
+    //   this.setDataForPrint = res;
+    //   this.isModalOpen = isOpen;
 
-    });
+    // });
     }
     else{
       console.log('asdas');

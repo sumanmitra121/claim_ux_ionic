@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'Claim_ux',
+  appId: 'synergicportal.claim',
+  appName: 'Claim UX',
   webDir: 'www',
   bundledWebRuntime: false
 };

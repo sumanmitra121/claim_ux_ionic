@@ -1,10 +1,12 @@
 /* eslint-disable no-var */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { DOCUMENT } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { Router } from '@angular/router';
+import { Http, HttpOptions } from '@capacitor-community/http';
 import { LoadingController, ToastController } from '@ionic/angular';
+import { from } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 // import {httpClient} from '@angular';
@@ -67,7 +69,21 @@ export class ApiCallService {
   enableLight(){
     this.renderer.removeClass(this.document.body,'dark-theme');
   }
-
-
+  getData(api_name){
+    var url = `${environment.api_url + api_name}`;
+    const option: HttpOptions ={
+      url
+    };
+    return from(Http.get(option));
+  }
+  postData(api_name,dt: FormData){
+    var url = `${environment.api_url + api_name}`;
+    const option: HttpOptions ={
+      url,
+      data:dt,
+      headers:{'Content-Type': 'multipart/form-data; charset=UTF-8'}
+    };
+    return from(Http.post(option));
+  }
 
 }
