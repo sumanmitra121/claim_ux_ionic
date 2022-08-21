@@ -1,0 +1,82 @@
+
+<ion-split-pane contentId="main-content">
+  <ion-menu contentId="main-content" type="overlay">
+    <ion-content fullscreen>
+      <ion-card class="card_body">
+        <img src="../../../assets/Image/favicon.ico" />
+        <ion-card-header>
+          <ion-card-title>Synergic Softek Solutions Pvt. Ltd</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Module 7/18, Acropolis, 1858/1, Rajdanga Main Road
+          Kolkata – 700 107
+        </ion-card-content>
+      </ion-card>
+
+      <div *ngFor="let m of menus">
+       <ion-menu-toggle *ngIf="m.url">
+         <ion-item [routerLink]="m.url" routerLinkActive="active" routerDirection="root">
+           <ion-icon slot="start" [name]="m.icon"></ion-icon>
+           <ion-label>{{m.title}}</ion-label>
+         </ion-item>
+       </ion-menu-toggle>
+       <ion-item button *ngIf="m.children?.length > 0" (click)="m.open = !m.open"
+         [class.active-parent]="m.open" detail="false">
+         <!-- <ion-label>Awesome Label</ion-label> -->
+         <ion-icon slot="end" name="chevron-down-outline" *ngIf="!m.open"></ion-icon>
+         <ion-icon slot="end" name="chevron-up-outline" *ngIf="m.open"></ion-icon>
+         <ion-label>{{m.title}}</ion-label>
+         <ion-icon slot="start" [name]="m.icon"></ion-icon>
+       </ion-item>
+       <ion-list *ngIf="m.open">
+        <ion-menu-toggle >
+          <ng-container *ngFor="let m_sub of m.children">
+            <ion-item *ngIf="m_sub.url!==''"  class="sub-item"  [routerLink]="m_sub.url" routerDirection="root" routerLinkActive="active" >
+              <ion-icon slot="end" [name]="m_sub.icon"></ion-icon>
+              <ion-label>{{m_sub.title}}</ion-label>
+            </ion-item>
+            <ion-item *ngIf="m_sub.url ===''"  class="sub-item" (click)="setOpen(true,m_sub.title)">
+              <ion-icon slot="end" [name]="m_sub.icon"></ion-icon>
+              <ion-label>{{m_sub.title}}</ion-label>
+            </ion-item>
+            <ion-modal [isOpen]="isModalOpen">
+              <ng-template>
+                <ion-header>
+                  <ion-toolbar>
+                    <ion-title>{{selected_menu}}</ion-title>
+                    <ion-buttons slot="end">
+                      <ion-button (click)="setOpen(false,'')">Close</ion-button>
+                    </ion-buttons>
+                  </ion-toolbar>
+                </ion-header>
+                <ion-content class="ion-no-padding">
+                    <form [formGroup]="reports_Form" (ngSubmit)="submit_reports()">
+                      <ion-item class="ionItem">
+                        <ion-label  position="floating">From Date</ion-label>
+                        <ion-input type="date" formControlName="frm_dt" placeholder="dd/mm/YYYY"></ion-input>
+                      </ion-item>
+                      <ion-item  class="ionItem">
+                        <ion-label position="floating">To Date</ion-label>
+                        <ion-input type="date"  formControlName="to_dt" placeholder="dd/mm/YYYY"></ion-input>
+                      </ion-item>
+                      <ion-button [disabled]="reports_Form.invalid" type="submit" expand="block" fill="solid" shape="round" color="primary">
+                        Proceed
+                      </ion-button>
+                    </form>
+
+                </ion-content>
+              </ng-template>
+            </ion-modal>
+          </ng-container>
+
+        </ion-menu-toggle>
+       </ion-list>
+      </div>
+
+
+
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="main-content"></ion-router-outlet>
+</ion-split-pane>

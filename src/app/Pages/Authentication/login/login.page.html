@@ -1,0 +1,31 @@
+<ion-card class="ion-no-margin">
+  <ion-card-header>
+    <ion-list>
+         <ion-img src="assets/Image/favicon.ico" height="150"></ion-img>
+    </ion-list>
+    <ion-card-title>Welcome To Synergic Softek Solutions Pvt. Ltd</ion-card-title>
+ <ion-card-subtitle>Module 7/18, Acropolis, 1858/1, Rajdanga Main Road Kolkata – 700 107</ion-card-subtitle>
+
+  </ion-card-header>
+
+  <ion-card-content>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">User Id</ion-label>
+        <ion-input formControlName="user_id" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input formControlName="password" type="password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button [disabled]="loginForm.invalid" type="submit" expand="full" shape="round">Login</ion-button>
+    </form>
+    <ion-item class="_text_alignment">
+      <ion-label>Don't have an account? <ion-text color="primary">Sign Up</ion-text></ion-label>
+    </ion-item>
+
+  </ion-card-content>
+</ion-card>
+

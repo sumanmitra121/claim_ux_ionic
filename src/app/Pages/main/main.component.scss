@@ -1,0 +1,48 @@
+.active{
+  --ion-text-color:var(--ion-color-primary);
+  ion-icon{
+  --ion-text-color-rgb:var(--ion-color-primary);
+
+  }
+}
+ion-button{
+  margin:5px 0;
+}
+.ionItem{
+  margin: 32px 0;
+  --background:transparent;
+}
+
+
+.active-parent{
+  font-weight: 500;
+
+}
+.sub-menu{
+  padding-left: 20px;
+  font-size: small;
+}
+
+
+ion-menu {
+     ion-item{
+      --background: transparent;
+     }
+     ion-list{
+      --background: transparent;
+
+     }
+
+}
+
+.card_body{
+  text-align: center;
+  margin: 0 0 21px 0;
+  --background: transparent;
+   box-shadow: none;
+  img{
+    padding: 10px;
+    height: 150px;
+  }
+
+}

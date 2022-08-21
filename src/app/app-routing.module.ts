@@ -2,14 +2,11 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  {path: '',loadChildren: () => import('../app/Pages/Authentication/main-auth.module').then( m => m.MainAuthModule)},
+  {path: '',loadChildren: () => import('../app/Pages/main/main.module').then( m => m.MainModule)},
   {
-    path: '',
-    redirectTo: 'folder/Inbox',
-    pathMatch: 'full'
-  },
-  {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+    path: 'add-claim',
+    loadChildren: () => import('./Pages/main/claim/add-claim/add-claim.module').then( m => m.AddClaimPageModule)
   }
 ];
 

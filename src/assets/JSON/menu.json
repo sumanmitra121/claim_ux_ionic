@@ -1,0 +1,17 @@
+[
+  {"title": "Dashboard", "url": "/main", "icon": "home"},
+  {"title": "Claim", "icon": "bar-chart-outline","open":false,
+    "children": [
+            { "title": "Add Claim", "url": "/main/claim_dashboard", "icon": "chevron-forward-outline" }
+         ] },
+         {"title": "Reports", "icon": "stats-chart-outline","open":false,
+          "children": [
+                 { "title": "Claim Details", "url": "", "icon": "chevron-forward-outline" },
+                 { "title": "Personal Ledger", "url": "", "icon": "chevron-forward-outline" },
+                 { "title": "Payment Details", "url": "", "icon": "chevron-forward-outline" },
+                 { "title": "Leave & Attandance", "url": "", "icon": "chevron-forward-outline" }
+
+               ] }
+
+
+]

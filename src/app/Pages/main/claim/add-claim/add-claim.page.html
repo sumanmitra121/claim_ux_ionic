@@ -1,0 +1,122 @@
+<Component-header [title]="title">
+  <ion-buttons slot="end">
+    <ion-back-button defaultHref="/main/claim_dashboard"></ion-back-button>
+ </ion-buttons>
+</Component-header>
+
+
+<ion-content>
+  <ion-card class="ion-no-margin">
+      <form [formGroup]="claimForms" (ngSubmit)="ClaimsData()">
+        <ion-row>
+          <ion-col size="5">
+            <ion-item lines="full">
+              <ion-label position="floating">Trans Date</ion-label>
+             <ion-input type="text" formControlName="current_date" readonly></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="7">
+            <ion-item>
+              <ion-label position="floating">Project Name *</ion-label>
+              <ionic-selectable
+                item-content
+                formControlName="project_name"
+                [items]="p_name"
+                itemValueField="project_type"
+                itemTextField="project_name"
+                [canSearch]="true"
+               >
+              </ionic-selectable>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="floating">From Date *</ion-label>
+              <ion-input type="date" formControlName="frm_dt" placeholder="dd/mm/YYYY"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item lines="full">
+              <ion-label position="floating">To Date *</ion-label>
+             <ion-input type="date" formControlName="to_dt" placeholder="dd/mm/YYYY"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item>
+              <ion-label position="floating">Purpose *</ion-label>
+              <ionic-selectable
+                item-content
+                formControlName="purpose"
+                [items]="p_desc"
+                itemValueField="purpose_desc"
+                itemTextField="purpose_desc"
+                [canSearch]="true"
+               >
+              </ionic-selectable>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item>
+              <ion-label position="floating">Narration *</ion-label>
+              <ion-textarea formControlName="narration"></ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+       <hr/>
+        <ion-row>
+          <ion-col size="10">
+            <ion-item>
+              <ion-label position="floating">Claim Total *</ion-label>
+              <ion-input type="text" formControlName="claim_total" readonly></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2">
+              <ion-button fill="clear" shape="round" (click)="addClaimDtls()">
+                <ion-icon name="add-outline"></ion-icon>
+              </ion-button>
+          </ion-col>
+        </ion-row>
+        <div formArrayName="claim_dtls">
+          <ion-row *ngFor="let claim of claimDtls.controls
+        ; let i=index">
+        <ng-container [formGroupName]="i">
+            <ion-col size="7">
+                  <ion-item>
+                    <ion-label position="floating">Head *</ion-label>
+                    <ion-select formControlName="head"  multiple="false">
+                      <ion-select-option value="{{c_Head.head_desc}}" *ngFor="let c_Head of c_head" >{{c_Head.head_desc}}</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+            </ion-col>
+            <ion-col size="5">
+              <ion-item>
+                <ion-label position="floating">Amount *</ion-label>
+                <ion-input (ionChange)="calculateClaimTotal()" formControlName="amount"  type="text"></ion-input>
+              </ion-item>
+             </ion-col>
+             <ion-col size="10">
+              <ion-item>
+                <ion-label position="floating">Remarks *</ion-label>
+                <ion-textarea  formControlName="remarks"></ion-textarea>
+              </ion-item>
+             </ion-col>
+             <ion-col size="2" *ngIf="i > 0">
+              <ion-item>
+                <ion-button fill="clear" color="danger" shape="round" (click)="removeClaimDtls(i)">
+                  <ion-icon name="trash-outline"></ion-icon>
+                </ion-button>
+              </ion-item>
+             </ion-col>
+            </ng-container>
+          </ion-row>
+        </div>
+        <ion-button [disabled]="claimForms.invalid" type="submit" expand="full" shape="round" >Submit</ion-button>
+       </form>
+  </ion-card>
+</ion-content>

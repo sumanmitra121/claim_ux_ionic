@@ -1,0 +1,155 @@
+
+<Component-header [title]="title">
+  <ion-buttons slot="end" [routerLink]="['/main/add_claim',0]" >
+    <ion-icon name="add-outline" slot="start"></ion-icon>
+  </ion-buttons>
+  <ion-buttons slot="end">
+    <ion-button (click)="changeTableStyle()">
+      <ion-icon name="contrast-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+
+</Component-header>
+
+<ion-content>
+  <Component-card>
+  <ion-searchbar showCancelButton="focus" cancelButtonText="Custom Cancel" (ionCancel)="cancel()" (ionChange)="updateFilter($event)"></ion-searchbar>
+  </Component-card>
+  <Component-card>
+
+    <ngx-datatable #myTable [rows]="users" [columnMode]="'force'"
+    [limit]="10"
+    [rowHeight]="'auto'"
+    [headerHeight]="60"
+    [footerHeight]="60"
+    [ngClass]="tableStyle"
+    [reorderable]="false">
+
+      <ngx-datatable-column name="Claim Cd" >
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.claim_cd}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Claim Date" >
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.claim_dt | date:'dd/MM/YYYY'}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Status" >
+        <ng-template let-row="row" ngx-datatable-cell-template>
+         <ion-text [color]="row.approval_status > 0 ? 'success' : 'danger'"> {{row.approval_status > 0 ? 'Aproved' : 'Un-Approve'}}</ion-text>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Actions" [sortable]="false">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <ion-icon slot="end" color="primary" name="create"  [routerLink]="['/main/add_claim',row.claim_cd]"></ion-icon>
+          <ion-icon name="trash-outline" slot="end" color="danger"></ion-icon>
+          <ion-icon name="print" (click)="setOpen(true,row.claim_cd)"></ion-icon>
+        </ng-template>
+      </ngx-datatable-column>
+
+
+    </ngx-datatable>
+  </Component-card>
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+               <ion-buttons slot="end">
+                 <ion-button (click)="print()">
+                  <ion-icon name="print"  ></ion-icon>
+                 </ion-button>
+               </ion-buttons>
+            <ion-title>Print CLaim Voucher</ion-title>
+          <ion-buttons slot="start">
+            <ion-button (click)="setOpen(false,0)">
+            <ion-icon name="close-outline" ></ion-icon>
+          </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding" id="printClaim">
+        <ion-title size="large">Synergic Softek Solutions Pvt. Ltd</ion-title>
+           <table>
+             <tr>
+               <td colspan="4">
+               <ion-title >Claim Voucher</ion-title>
+               </td>
+             </tr>
+             <tbody>
+               <tr>
+                 <td>Approve Date:</td>
+                 <td>{{setDataForPrint.claim.approval_status !== "0" ? setDataForPrint.claim.approval_dt + " | + date: 'dd/MM/YYYY'" : 'N/A'}}</td>
+                 <td>Claim Date:</td>
+                 <td>{{setDataForPrint.claim.claim_dt | date:'dd/MM/YYYY'}}</td>
+               </tr>
+               <tr>
+                <td>Claim No:</td>
+                <td>{{setDataForPrint.claim.claim_cd}}</td>
+                <td>Purpose:</td>
+                <td>{{setDataForPrint.claim.purpose}}</td>
+              </tr>
+               <tr>
+                <td>Project Name</td>
+                <td>{{setDataForPrint.claim.project_name}}</td>
+                <td>Project Type:</td>
+                <td>{{setDataForPrint.claim.project_type}}</td>
+               </tr>
+               <tr>
+                <td colspan="4"><ion-text>Pay To:</ion-text>{{setDataForPrint.claim.created_by}}</td>
+               </tr>
+               <tr>
+                <td colspan="4"><ion-text>Period Of Time:</ion-text>
+                  {{setDataForPrint.claim.from_dt | date:'dd/MM/YYYY'}} - {{setDataForPrint.claim.to_dt | date:'dd/MM/YYYY'}}
+                </td>
+               </tr>
+
+             </tbody>
+           </table>
+
+           <table>
+            <thead>
+              <tr>
+                <th>Sl No.</th>
+                <th>Head</th>
+                <th>Remarks</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let populateData of setDataForPrint.cltrans">
+                <td>{{populateData.sl_no}}</td>
+                <td>{{populateData.claim_hd}}</td>
+                <td>{{populateData.remarks}}</td>
+                <td>{{populateData.amount}}</td>
+              </tr>
+              <tr>
+                <td colspan="3">TOTAL</td>
+                <td  colspan="1">{{setDataForPrint.claim.amount}}</td>
+              </tr>
+              <tr>
+                <td colspan="4">
+                  In Words :  One Rupees Only
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4">
+                  NARRATION : {{setDataForPrint.claim.narration}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                 <h5> CLAIMED BY: </h5>
+                 {{setDataForPrint.claim.created_by}}
+                </td>
+                <td colspan="2">
+                  <h5> APPROVED BY : </h5>
+                  {{setDataForPrint.claim.approved_by ? setDataForPrint.claim.approved_by : 'N/A'}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

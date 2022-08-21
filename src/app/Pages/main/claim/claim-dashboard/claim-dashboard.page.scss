@@ -1,0 +1,41 @@
+
+ion-icon{
+  font-size: 21px;
+  margin: 2px;
+}
+ion-content{
+  ion-title{
+    text-align:center;
+    margin:5px 0px;
+  }
+  ion-row{
+      ion-col{
+        text-align: center;
+      }
+  }
+}
+
+table{
+  width:100%;
+}
+
+td,th{
+  padding: 12px 0px;
+  font-size: 14px;
+  border: 1px solid #fff;
+  text-align: center;
+  width:20%;
+  word-break: break-word;
+}
+tr{
+  td{
+    ion-text{
+      font-size: 17px;
+      font-weight: 500;
+      margin: 0 7px;
+    }
+  }
+}
+ion-title{
+  text-align: center;
+}
