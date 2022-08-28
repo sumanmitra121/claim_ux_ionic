@@ -12,6 +12,8 @@
                  { "title": "Leave & Attandance", "url": "", "icon": "chevron-forward-outline","mode":"L" }
 
                ] },
+          {"title": "Upload Image", "icon": "image-outline","url":"/main/imageUpload"},
+
           {"title": "Log Out", "icon": "power-outline","url":"/"}
 
 

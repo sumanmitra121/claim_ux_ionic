@@ -16,7 +16,8 @@ const route: Routes= [
                           {path:'home',loadChildren:()=>import('./dashboard/dashboard.module').then(m => m.DashboardPageModule)},
                           {path:'claim_dashboard',loadChildren:()=>import('./claim/claim-dashboard/claim-dashboard.module').then(m => m.ClaimDashboardPageModule)},
                           {path:'add_claim/:id',loadChildren:()=>import('./claim/add-claim/add-claim.module').then(m => m.AddClaimPageModule)},
-                          {path:'reports/:type/:frm_dt/:to_dt',loadChildren:()=>import('../main/reports/reports.module').then(m => m.ReportsPageModule)}
+                          {path:'reports/:type/:frm_dt/:to_dt',loadChildren:()=>import('../main/reports/reports.module').then(m => m.ReportsPageModule)},
+                          {path:'imageUpload',loadChildren:()=>import('../main/upload-image/upload-image.module').then(m => m.UploadImagePageModule)}
                        ]
                       }
                       ];
@@ -29,7 +30,6 @@ const route: Routes= [
     IonicModule,
     ReactiveFormsModule,
     FormsModule,
-    IncludeModule,
     RouterModule.forChild(route)
   ],
   exports:[RouterModule]

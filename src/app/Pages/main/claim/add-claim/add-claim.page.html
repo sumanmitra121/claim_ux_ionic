@@ -1,12 +1,23 @@
-<Component-header [title]="title">
+<!-- <Component-header [title]="title">
   <ion-buttons slot="end">
     <ion-back-button defaultHref="/main/claim_dashboard"></ion-back-button>
  </ion-buttons>
-</Component-header>
+</Component-header> -->
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/main/claim_dashboard"></ion-back-button>
+   </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
+<ion-content [fullscreen]="true">
+  <component-refresh></component-refresh>
 
-<ion-content>
   <ion-card class="ion-no-margin">
+
+
       <form [formGroup]="claimForms" (ngSubmit)="ClaimsData()">
         <ion-row>
           <ion-col size="5">
@@ -31,17 +42,62 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col size="6">
-            <ion-item>
-              <ion-label position="floating">From Date *</ion-label>
-              <ion-input type="date" formControlName="frm_dt" placeholder="dd/mm/YYYY"></ion-input>
+          <ion-col size="12">
+            <ion-item lines="none">
+              <ion-label position="fixed">From Date *</ion-label>
+              <ion-datetime-button slot="end"  displayFormat="YYYY-MMMM-D"	 mode="md" color="primary" datetime="frm_date"></ion-datetime-button>
+
             </ion-item>
+            <ion-popover [keepContentsMounted]="true">
+              <ng-template>
+                <ion-item>
+                  <ion-datetime
+                   id="frm_date"
+                   displayFormat="YYYY-MMMM-D"
+                   [showDefaultButtons]="true"
+                   [preferWheel]="false"
+                   doneText="Ok"
+                   cancelText="Cancel"
+                    [mode]="'ios'"
+                    size="cover"
+                    formControlName="frm_dt"
+                    presentation="date"
+                    (ionChange)="change($event,'F')"
+                    >
+                    <span slot="title">Select Start Date</span>
+                  </ion-datetime>
+                </ion-item>
+              </ng-template>
+
+            </ion-popover>
           </ion-col>
-          <ion-col size="6">
-            <ion-item lines="full">
-              <ion-label position="floating">To Date *</ion-label>
-             <ion-input type="date" formControlName="to_dt" placeholder="dd/mm/YYYY"></ion-input>
+          <ion-col size="12">
+            <ion-item lines="none">
+              <ion-label position="fixed">To Date *</ion-label>
+              <ion-datetime-button mode="md"  slot="end" datetime="to_date" ></ion-datetime-button>
+
             </ion-item>
+            <ion-popover [keepContentsMounted]="true">
+              <ng-template>
+                <ion-item>
+                  <ion-datetime
+                   id="to_date"
+                   [showDefaultButtons]="true"
+                   [preferWheel]="false"
+                   doneText="Ok"
+                   cancelText="Cancel"
+                    mode="ios"
+                    size="cover"
+                    formControlName="to_dt"
+                    presentation="date"
+                    (ionChange)="change($event,'T')"
+                    >
+                    <span slot="title">Select End Date</span>
+                  </ion-datetime>
+                </ion-item>
+              </ng-template>
+
+            </ion-popover>
           </ion-col>
         </ion-row>
         <ion-row>

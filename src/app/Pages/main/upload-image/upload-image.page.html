@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Upload Image</ion-title>
+  </ion-toolbar>
+  <ion-buttons slot="end">
+    <ion-back-button defaultHref="/main/home"></ion-back-button>
+ </ion-buttons>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ng-container *ngIf="url.length > 0">
+        <h1 color="primary">Images Choose by library</h1>
+      <div *ngFor="let urls of url">
+        <img [src]="santizeUrl(urls)" height="100" width="150"/>
+       </div>
+      </ng-container>
+
+
+      <ng-container *ngIf="imageurl.length > 0">
+        <ion-text color="success">
+          <h1>Images choosen by Camera</h1>
+        </ion-text>
+        <div *ngFor="let urls of imageurl">
+          <img [src]="santizeUrl(urls)" height="100" width="150"/>
+         </div>
+        </ng-container>
+
+
+    </ion-row>
+    </ion-grid>
+ <ion-button (click)="selectImage()"  fill="clear" shape="round">
+   Choose Image
+ </ion-button>
+</ion-content>

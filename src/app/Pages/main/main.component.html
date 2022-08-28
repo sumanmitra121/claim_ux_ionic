@@ -2,8 +2,9 @@
 <ion-split-pane contentId="main-content">
   <ion-menu contentId="main-content" type="overlay">
     <ion-content fullscreen>
+
       <ion-card class="card_body">
-        <img src="../../../assets/Image/favicon.ico" />
+        <img src="../../../assets/Image/favicon.png" />
         <ion-card-header>
           <ion-card-title>Synergic Softek Solutions Pvt. Ltd</ion-card-title>
         </ion-card-header>
@@ -15,7 +16,7 @@
 
       <div *ngFor="let m of menus">
        <ion-menu-toggle *ngIf="m.url">
-         <ion-item [routerLink]="m.url" routerLinkActive="active" routerDirection="root">
+         <ion-item [routerLink]="m.url" routerLinkActive="active" routerDirection="forward">
            <ion-icon slot="start" [name]="m.icon"></ion-icon>
            <ion-label>{{m.title}}</ion-label>
          </ion-item>
@@ -31,7 +32,7 @@
        <ion-list *ngIf="m.open">
         <ion-menu-toggle >
           <ng-container *ngFor="let m_sub of m.children">
-            <ion-item *ngIf="m_sub.url!==''"  class="sub-item"  [routerLink]="m_sub.url" routerDirection="root" routerLinkActive="active" >
+            <ion-item *ngIf="m_sub.url!==''"  class="sub-item"  [routerLink]="m_sub.url" routerDirection="forward" routerLinkActive="active" >
               <ion-icon slot="end" [name]="m_sub.icon"></ion-icon>
               <ion-label>{{m_sub.title}}</ion-label>
             </ion-item>
@@ -77,6 +78,5 @@
 
     </ion-content>
   </ion-menu>
-
-  <ion-router-outlet id="main-content"></ion-router-outlet>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
 </ion-split-pane>

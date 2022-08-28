@@ -42,6 +42,13 @@ class c_heads {
   styleUrls: ['./add-claim.page.scss'],
 })
 export class AddClaimPage implements OnInit {
+  customPickerOptions={
+    cancelText :'Cancel',
+    displayFormat :'dd-MM-YYYY',
+    displayTimezone : 'UTC',
+    doneText :'Ok',
+    mode :'ios',
+  }
   c_head:c_heads[];
   p_desc:purpose_details[];
   p_name: ProjectName[];
@@ -55,17 +62,18 @@ export class AddClaimPage implements OnInit {
     private router: ActivatedRoute,
     private api_call: ApiCallService) {
       this.title = Number(this.router.snapshot.params.id) > 0 ? 'Edit Claims' : 'Add Claims';
-
     this.claimForms = this.fb.group({
         current_date:[this.datePipe.transform(new Date(),'dd/MM/YYYY')],
         project_name:['',Validators.required],
-        frm_dt:['',Validators.required],
-        to_dt:['',Validators.required],
+        frm_dt:[this.datePipe.transform(new Date(),'YYYY-MM-dd'),Validators.required],
+        to_dt:[this.datePipe.transform(new Date(),'YYYY-MM-dd'),Validators.required],
         purpose:['',Validators.required],
         narration:['',Validators.required],
         claim_total:[0],
         claim_dtls:this.fb.array([])
     });
+    console.log(this.claimForms);
+
     this.getProjectNames();
     this.purposDetails();
     this.claimHeads();
@@ -79,7 +87,7 @@ export class AddClaimPage implements OnInit {
     return this.fb.group({
       head: ['',Validators.required],
       amount: [0,Validators.required],
-      remarks: ['',Validators.required],
+      remarks: [''],
     });
  }
  addClaimDtls() {
@@ -161,44 +169,44 @@ removeClaimDtls(i:number) {
  async ClaimsData(){
    console.log(this.claimForms.value);
 
-    const loading = await this.loadingCtrl.create({
-      message: 'Please Wait',
-      duration: 3000,
-      cssClass: 'custom-loading',
-    });
-    loading.present();
-    var amount = [];
-    var chead = [];
-    var remarks = [];
-    this.claimForms.value.claim_dtls.forEach((element,index) => {
-      amount.push(element.amount);
-      remarks.push(element.remarks);
-      chead.push(element.head);
-      });
-    const formdata = new FormData();
-    formdata.append('date1',this.claimForms.value.frm_dt);
-     var project_name = {
-       pName:this.claimForms.value.project_name.project_name,
-       pType:this.claimForms.value.project_name.project_type}
-    formdata.append('projectName',JSON.stringify(project_name));
-    formdata.append('purpose',this.claimForms.value.purpose.purpose_desc);
-    formdata.append('date2',this.claimForms.value.to_dt);
-    formdata.append('narration',this.claimForms.value.narration);
-    formdata.append('amount',JSON.stringify(amount));
-    formdata.append('remarks',JSON.stringify(remarks));
-    formdata.append('chead',JSON.stringify(chead));
-    formdata.append('emp_no',JSON.parse(localStorage.getItem('user')).emp_no);
-    formdata.append('emp_name',JSON.parse(localStorage.getItem('user')).emp_name);
-    this.api_call.postData('/csave',formdata).subscribe((res:any) =>{
-         loading.dismiss();
-        if(JSON.parse(res.data).suc > 0){
-              this.presentToastWithOptions('Claims Successfully Submitted');
-              this.api_call.routeToSpecificPage('/main/claim_dashboard',null);
-        }
-        else{
-          this.presentToastWithOptions('Claims Submission Failed');
-        }
-    })
+    // const loading = await this.loadingCtrl.create({
+    //   message: 'Please Wait',
+    //   duration: 3000,
+    //   cssClass: 'custom-loading',
+    // });
+    // loading.present();
+    // var amount = [];
+    // var chead = [];
+    // var remarks = [];
+    // this.claimForms.value.claim_dtls.forEach((element,index) => {
+    //   amount.push(element.amount);
+    //   remarks.push(element.remarks);
+    //   chead.push(element.head);
+    //   });
+    // const formdata = new FormData();
+    // formdata.append('date1',this.claimForms.value.frm_dt);
+    //  var project_name = {
+    //    pName:this.claimForms.value.project_name.project_name,
+    //    pType:this.claimForms.value.project_name.project_type}
+    // formdata.append('projectName',JSON.stringify(project_name));
+    // formdata.append('purpose',this.claimForms.value.purpose.purpose_desc);
+    // formdata.append('date2',this.claimForms.value.to_dt);
+    // formdata.append('narration',this.claimForms.value.narration);
+    // formdata.append('amount',JSON.stringify(amount));
+    // formdata.append('remarks',JSON.stringify(remarks));
+    // formdata.append('chead',JSON.stringify(chead));
+    // formdata.append('emp_no',JSON.parse(localStorage.getItem('user')).emp_no);
+    // formdata.append('emp_name',JSON.parse(localStorage.getItem('user')).emp_name);
+    // // this.api_call.postData('/csave',formdata).subscribe((res:any) =>{
+    // //      loading.dismiss();
+    // //     if(JSON.parse(res.data).suc > 0){
+    // //           this.presentToastWithOptions('Claims Successfully Submitted');
+    // //           this.api_call.routeToSpecificPage('/main/claim_dashboard',null);
+    // //     }
+    // //     else{
+    // //       this.presentToastWithOptions('Claims Submission Failed');
+    // //     }
+    // // })
 
     // this.api_call.client_call(1,'/csave',formdata).subscribe((res:any) => {
     //   loading.dismiss();
@@ -270,7 +278,31 @@ removeClaimDtls(i:number) {
     const { role } = await toast.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
   }
+  doRefresh(event){
+    setTimeout(()=>{
+      event.target.complete();
+      location.reload();
+    },3000);
+  }
+  change(event,type){
+    console.log(event);
+
+    if(type === 'F'){
+      this.claimForms.patchValue({
+        frm_dt:this.datePipe.transform(this.claimForms.value.frm_dt,'YYYY-MM-dd')
+      })
+    }
+    else{
+      this.claimForms.patchValue({
+        to_dt:this.datePipe.transform(this.claimForms.value.to_dt,'YYYY-MM-dd')
+      })
+    }
+
+    console.log(this.claimForms.value.frm_dt);
 
 
-
+  }
+ dateFormat(date,format){
+  return this.datePipe.transform(date,format);
+ }
 }

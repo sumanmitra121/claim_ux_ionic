@@ -1,7 +1,7 @@
-<ion-card class="ion-no-margin">
+<!-- <ion-card class="ion-no-margin">
   <ion-card-header>
     <ion-list>
-         <ion-img src="assets/Image/favicon.ico" height="150"></ion-img>
+         <ion-img src="assets/Image/logo.png" height="150"></ion-img>
     </ion-list>
     <ion-card-title>Welcome To Synergic Softek Solutions Pvt. Ltd</ion-card-title>
  <ion-card-subtitle>Module 7/18, Acropolis, 1858/1, Rajdanga Main Road Kolkata – 700 107</ion-card-subtitle>
@@ -28,4 +28,76 @@
 
   </ion-card-content>
 </ion-card>
+ -->
 
+
+ <ion-content [fullscreen]="true">
+
+  <ion-grid>
+    <!-- <ion-label color="white" class="ion-margin ion-padding-start">
+      Welcome
+      <p>
+        <ion-text color="white" class="ion-margin ion-padding-start">Synergic Softek Solution Pvt. Ltd</ion-text>
+      </p>
+    </ion-label> -->
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer class="ion-no-border">
+
+  <ion-row>
+
+    <ion-fab vertical="top" horizontal="end" >
+      <ion-fab-button [disabled]="loginForm.invalid"  color="primary" (click)="login()">
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+    <ion-list lines="full">
+      <ion-list-header class="ion-margin">
+        <ion-label>Get Started</ion-label>
+      </ion-list-header>
+      <ion-item-group class="ion-margin-horizontal ion-margin-bottom">
+        <form [formGroup]="loginForm">
+
+          <div id="sign-in-button"></div>
+
+          <div class="ion-margin-vertical">
+            <ion-item>
+              <ion-input
+              formControlName="user_id"
+                placeholder="User Id"
+                type="text">
+              </ion-input>
+            </ion-item>
+            <ion-text *ngIf="!loginForm.get('user_id').valid && loginForm.get('user_id').touched">
+              <ion-text class="error" *ngIf="loginForm.get('user_id').hasError('required')" color="danger">
+                * Please enter the user id
+              </ion-text>
+            </ion-text>
+          </div>
+
+          <div class="ion-margin-vertical">
+            <ion-item>
+              <ion-input
+               formControlName="password"
+                placeholder="Password"
+                type="password">
+              </ion-input>
+            </ion-item>
+            <ion-text *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
+              <ion-text class="error" *ngIf="loginForm.get('password').hasError('required')" color="danger">
+                * Please enter the password
+              </ion-text>
+
+            </ion-text>
+          </div>
+
+        </form>
+
+      </ion-item-group>
+    </ion-list>
+  </ion-row>
+
+</ion-footer>

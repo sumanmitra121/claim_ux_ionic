@@ -1,45 +1,12 @@
-ion-card{
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  flex-direction: column;
-  ion-card-header{
-    text-align: center;
-    ion-card-title{
-      font-size: 26px;
-      font-weight: 500;
-    }
-    ion-card-subtitle{
-      font-size: 20px;
-      font-weight: 400;
-    }
-  }
-  ion-card-content{
-    width: 100%;
-    ion-list{
-      ion-item{
-        font-size: 21px;
-        font-weight: 500;
-        margin: 12px 0;
+
+ion-content {
+  --background: url('/assets/Image/loginBackGroundImg.png') no-repeat center center/cover;
+  ion-grid {
+      transform: translateY(10vh);
+      ion-label, p {
+          font-size: 15px;
+          font-weight: bold;
+          color:var(--ion-color-light);
       }
-    }
-    ._text_alignment{
-      text-align: center;
-      ion-text{
-        font-size: 18px;
-        font-weight: 500;
-      }
-      ion-text:hover{
-        text-decoration: underline;
-        text-decoration-color: var(--ion-color-primary);
-      }
-    }
-  }
-  ion-list{
-    ion-img{
-      height: 150px;
-    }
   }
 }

@@ -25,8 +25,62 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-@import "~@swimlane/ngx-datatable/index.css";
-@import "~@swimlane/ngx-datatable/themes/dark.css";
-@import "~@swimlane/ngx-datatable/themes/bootstrap.css";
-@import "~@swimlane/ngx-datatable/themes/material.css";
-@import "~@swimlane/ngx-datatable/assets/icons.css";
+// @import "~@swimlane/ngx-datatable/index.css";
+// @import "~@swimlane/ngx-datatable/themes/dark.css";
+// @import "~@swimlane/ngx-datatable/themes/bootstrap.css";
+// @import "~@swimlane/ngx-datatable/themes/material.css";
+// @import "~@swimlane/ngx-datatable/assets/icons.css";
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/bootstrap.scss';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/themes/dark.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+
+ion-content{
+  .main-header {
+    height: 45vh;
+    width: 150%;
+    background: linear-gradient(90deg, var(--ion-color-tertiary) 10%, var(--ion-color-primary) 100%);
+    box-shadow: 0 1px 10px var(--ion-color-light);
+    border-radius: 0 0 50% 50%;
+    margin-left: -14vh;
+    margin-top: -60px;
+  }
+  ion-grid {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(10vh);
+    padding-bottom: 8vh;}
+}
+
+ion-footer {
+  ion-row {
+      padding-top: 5vh;
+      background: transparent;
+      display: block;
+      ion-fab-button {
+          margin-right: 2.5vh;
+      }
+      ion-list {
+          border-radius: 20px 20px 0 0;
+          padding-bottom: 8vh;
+          ion-list-header {
+              ion-label {
+                  font-weight: bold;
+                  font-size: 1.8rem;
+              }
+          }
+          ion-input, ion-text {
+              font-size: 1rem;
+              font-weight: bold;
+          }
+
+      .error {
+          font-size: 0.75em !important;
+      }
+      }
+  }
+}
+

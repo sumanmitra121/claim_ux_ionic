@@ -3,15 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {path: '',loadChildren: () => import('../app/Pages/Authentication/main-auth.module').then( m => m.MainAuthModule)},
-  {path: '',loadChildren: () => import('../app/Pages/main/main.module').then( m => m.MainModule)},
-  {
-    path: 'add-claim',
-    loadChildren: () => import('./Pages/main/claim/add-claim/add-claim.module').then( m => m.AddClaimPageModule)
-  },
-  {
-    path: 'reports',
-    loadChildren: () => import('./Pages/main/reports/reports.module').then( m => m.ReportsPageModule)
-  }
+  {path: '',loadChildren: () => import('../app/Pages/main/main.module').then( m => m.MainModule)}
 ];
 
 @NgModule({

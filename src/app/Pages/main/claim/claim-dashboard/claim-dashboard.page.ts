@@ -48,12 +48,17 @@ class main{
 })
 export class ClaimDashboardPage implements OnInit {
   @ViewChild('myTable') table: DatatableComponent;
+  toggle= false;
   title: any='Claims';
-  _backup_user: any=[];
+  _backup_user: any[]=[];
   setDataForPrint: main;
   isModalOpen=false;
   tableStyle='bootstrap';
-   users: any=[];
+   users: any[]=[];
+   features: any[] = [
+    {id: 1, name: 'Total Claims', src: 'assets/Image/claim_dashboard.jpg', background: 'rgba(27,150,181, 0.1)'},
+    {id: 2, name: 'Un-Approved Claim', src: 'assets/Image/add_claim.webp', background: 'rgba(106,100,255, 0.1)'}
+  ];
   constructor(private api_call: ApiCallService,public printer: Printer) {
     this.fetchdata();
   }
@@ -73,18 +78,21 @@ export class ClaimDashboardPage implements OnInit {
     this.users = temp;
   }
   cancel(){
+    this.toggle=!this.toggle;
     this.users = this._backup_user;
   }
   fetchdata(){
-    this.api_call.getData('/claim_details?emp_no='+JSON.parse(localStorage.getItem('user')).emp_no).subscribe((res: any)=>{
-       this._backup_user = JSON.parse(res.data).msg;
-       this.users = JSON.parse(res.data).msg;
-    });
-    // this.api_call.client_call(0,'/claim_details','?emp_no='+JSON.parse(localStorage.getItem('user')).emp_no).subscribe((res: any) =>{
-    //   this.users = res.msg;
-    //   this._backup_user = res.msg;
-
+    // this.api_call.getData('/claim_details?emp_no='+JSON.parse(localStorage.getItem('user')).emp_no).subscribe((res: any)=>{
+    //    this._backup_user = JSON.parse(res.data).msg;
+    //    this.users = JSON.parse(res.data).msg;
     // });
+    this.api_call.client_call(0,'/claim_details','?emp_no='+JSON.parse(localStorage.getItem('user')).emp_no).subscribe((res: any) =>{
+      console.log(res.msg);
+      this.users = res.msg ? res.msg : [];
+      this._backup_user = res.msg? res.msg : [];
+       console.log(this._backup_user.length);
+
+    });
   }
 
   setOpen(isOpen,claim_cd){
@@ -123,5 +131,8 @@ export class ClaimDashboardPage implements OnInit {
       }, (err) => {
       console.log('err:', err);
       });
+  }
+  showSearchBar(){
+    this.toggle = !this.toggle;
   }
 }

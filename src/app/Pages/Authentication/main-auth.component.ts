@@ -10,5 +10,10 @@ export class MainAuthComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {}
-
+  doRefresh(event){
+    setTimeout(() => {
+      event.target.complete();
+      location.reload();
+    }, 3000);
+  }
 }
